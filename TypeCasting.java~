@@ -1,0 +1,8 @@
+public class TypeCasting {
+  public static void main (String[] args) {
+    int x= 3;
+    doble y= 4.56;
+    int n = (int) y;
+    double m =x;
+  }
+}

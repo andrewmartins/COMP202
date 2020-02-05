@@ -1,0 +1,8 @@
+piublic class Diagram
+  public static void main(String[] args){
+  System.out.print("Help! I need somebody. \n");
+  System.out.println("Help! Not just anybody.");
+}
+}
+
+  

@@ -1,0 +1,23 @@
+public class Exam{
+  private String aNumber;
+ 
+  
+  public Exam(String pNumber){
+    
+    assert pNumber.matches("^[A-Z]{4}\\s\\d{3}$");
+    aNumber = pNumber;
+    
+  }
+  
+  public static void main(String[] args){
+    
+    Exam exam = new Exam("COMP 250");
+    System.out.println(exam.getCourseNumber());
+    
+  }
+  
+  public String getCourseNumber(){
+    
+    
+  
+}

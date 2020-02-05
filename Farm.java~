@@ -1,0 +1,45 @@
+public class Farm{
+  private Sheep[] sheep;
+  private Dog dog;
+  private String name;
+  
+  public Farm(String name, Dog dog, Sheep[] sheep){
+    this.name = name;
+    this.dog = dog;
+    Sheep[] sheepCopy = new Sheep[sheep.length];
+    for(int i=0;i<sheepCopy.length;i++){
+      sheepCopy[i] = sheep[i];
+    }
+    this.sheep = sheepCopy;
+    if(sheep.length>dog.herd()){
+      throw new IllegalArgumentException("Maximum number of sheep for this dog is " + dog.herd() + ". Recieved" + sheep.length + " sheep.");
+    }
+  }
+  public String getName(){
+    return this.name;
+  }
+  public int getNumSheep(){
+    return this.sheep.length;
+  }
+  public void printFarm(){
+    System.out.println(getName());
+    System.out.println(dog.getName());
+    for(int i=0;i<sheep.length;i++){
+    System.out.print(sheep[i].getName());
+    System.out.print(" ");
+    System.out.print(sheep[i].getAge());
+    System.out.println();
+    }
+  }
+  public double getWool(){
+    double totalWool = 0;
+    for(int i=0;i<sheep.length;i++){
+      totalWool+=sheep[i].shear();
+      
+    }
+    return totalWool;
+  }
+    
+}
+ 
+    

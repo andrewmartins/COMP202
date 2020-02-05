@@ -1,0 +1,19 @@
+import java.util.Scanner;
+public class NewFriends{
+  public static void main(String[] args){
+    Scanner read = new Scanner(System.in);
+    
+    System.out.println("How old are you?");
+    int age = read.nextInt();
+    
+    System.out.println("What's your name?");
+    String name = read.nextLine();
+    
+    System.out.println(name + " you are " + age + " years old");
+    
+    read.close();
+    
+  }
+  
+  
+}

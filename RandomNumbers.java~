@@ -1,0 +1,21 @@
+import java.util.Random;
+public class RandomNumbers{
+  public static void main(String[] args){
+    
+    
+  }
+  // a method that creates an object of type Random using no seed
+  // the method displays 10 random integers between 0 and 50
+  
+  public static void getRandomNumbers(){
+    Random gen = new Randon();
+    // This generates a random int between 0 and 50 gen.nextInt(50);
+    for(int i = 0; i<10; i++){
+      System.out.println(gen.nextInt(50) + " ");
+    }
+    System.out.println();
+    
+  }
+  
+  
+}

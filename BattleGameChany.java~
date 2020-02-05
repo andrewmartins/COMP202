@@ -1,0 +1,125 @@
+//Name: Chany Ahn
+//Student ID: 260790296
+import java.util.Random;
+import java.util.Scanner;
+//import java.util.ArrayList;
+public class BattleGame {
+  public static Random randomNumber = new Random(); 
+  public static void main (String[] args) {
+    playGame("player.txt", "monster.txt", "spells.txt");
+  }
+  public static void playGame(String player, String monster, String spells) {
+    if (FileIO.readSpells(spells) == null) {
+      System.out.println("Game will be played without spells!"); 
+    }
+    if (FileIO.readCharacter(player) == null || FileIO.readCharacter(monster) == null) {
+      System.out.println("Game cannot be played!"); 
+    }
+    else {
+      Character odin = printCharacterInfo(player);//displays info for the player
+      String odinName = odin.getName();
+      double odinHealth = odin.getCurrentHealth();
+      int odinWins = odin.getNumWins();
+      System.out.println("Odin's Wins: " +odinWins);
+      System.out.println();
+      odin.setSpells(FileIO.readSpells(spells));
+      odin.displaySpells();
+
+      System.out.println();
+      
+      Character fenrir = printMonsterInfo(monster); //displays info for the monster
+      String fenrirName = fenrir.getName();
+      double fenrirHealth = fenrir.getCurrentHealth();
+      int fenrirWins = fenrir.getNumWins();
+      System.out.println("Fenrir's Wins: " +fenrirWins);
+      
+      String command; //initialized string for command
+      if(odin.getMaxHealth() <=0 || fenrir.getMaxHealth()<=0){
+        System.out.println("The game cannot be played if Odin and/or Fenrir start with a Maximum Health of 0");
+      }
+      else if (odin.getMaxHealth() > 0 && fenrir.getMaxHealth() > 0) {
+        Scanner in = new Scanner(System.in);
+        while (odinHealth > 0 && fenrirHealth > 0) {
+          System.out.println("\nWhat is your command?");
+          command = in.nextLine();
+          if (command.equals("attack")) {
+            fenrirHealth = attackInfo (odin, odinName, fenrirHealth, fenrir, fenrirName);
+            odinHealth = attackInfo (fenrir, fenrirName, odinHealth, odin, odinName);
+            if (odinHealth <= 0.00 || fenrirHealth <= 0.00) {
+              break;
+            }
+          }
+          else if (command.equals("quit")) {
+            System.out.println("Goodbye");
+            break;
+          }
+          else {
+            int spellSuccess = randomNumber.nextInt();
+            double spellDamage = odin.castSpell(command, spellSuccess);
+            String spellDamageInfo = String.format("%1$.2f", spellDamage);
+            if (spellDamage == 0){
+              System.out.println(odinName + "'s spell didn't work! Try again!"); 
+            }
+            else if (spellDamage == -1.0) {
+             System.out.println(odinName + " tried to cast " + command + ", but it did not work!"); 
+            }
+            else if (spellDamage > 0){
+              System.out.println(odinName+ "'s " +command+ " spell was successful! " +fenrirName+ " was hit with " +spellDamageInfo+ " damage!"); 
+              fenrirHealth = fenrir.takeDamage(Double.parseDouble(spellDamageInfo));
+              System.out.println(fenrirName+ "'s current health is " +fenrirHealth);
+              if (fenrirHealth <= 0.0){
+               System.out.println(fenrirName + " was not knocked out!");
+               break; 
+              }
+            }
+            odinHealth = attackInfo(fenrir, fenrirName, odinHealth, odin, odinName);
+          if (odinHealth <= 0.0) {
+            System.out.println(odinName + " was knocked out!");
+            break;
+          }
+          }
+        }
+        if (fenrirHealth <= 0 && odinHealth <= 0) {
+          System.out.println("It's a draw! Nobody wins!");
+        }
+        else if (fenrirHealth <= 0 ) {
+          odin.increaseWins();
+          System.out.println("\nFantastic! You killed the monster!");
+        }
+        else if (odinHealth <= 0) {
+          fenrir.increaseWins();
+          System.out.println("\nOh no! You lost!");
+        }
+        in.close();
+      }
+    }
+  }
+  
+  private static Character printCharacterInfo(String text) {
+    Character odin = FileIO.readCharacter(text); 
+    System.out.println(odin);
+    return odin;
+  }
+  
+  private static Character printMonsterInfo(String text) {
+    Character fenrir = FileIO.readCharacter(text);
+    System.out.println(fenrir);
+    return fenrir;
+  }
+  
+  private static String attackValueDamage(Character character) {
+    int attack = randomNumber.nextInt();
+    double damage = character.getAttackDamage(attack);
+    String attackStr = String.format("%1$.2f", damage);
+    return attackStr;
+  }
+  
+  private static double attackInfo(Character character, String charName, double oppHealth, Character damage, String opposingName){
+    String attackStr = attackValueDamage(character);
+    System.out.println(charName+ " attacks for " +attackStr+ " damage!!!!");
+    oppHealth = damage.takeDamage(Double.parseDouble(attackStr));
+    String health = String.format("%1$.2f", oppHealth);
+    System.out.println(opposingName + " current health is " +health);
+    return oppHealth;
+  }
+}

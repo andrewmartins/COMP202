@@ -1,0 +1,16 @@
+package Lecture24;
+
+public Class TestStudent{
+   
+  public static void main(String[] args){
+    // create a student
+    Student giulia = new Student();
+    // initialize the name of the student
+    giulia.name = "Giulia";
+    System.out.println(giulia.name);
+    Student harry = new Student();
+    harry.name = "Harry";
+    System.out.println(harry.name);
+    
+  }
+}

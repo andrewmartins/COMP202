@@ -1,0 +1,30 @@
+public class Dog{
+  private String name;
+  private String breed;
+  public static void main(String[] args){
+  }
+  public Dog(String name, String breed){
+    this.name = name;
+    this.breed = breed;
+  }
+  public String getName(){
+    return this.name;
+  }
+  public int herd(){
+    String dogBreed = this.breed.toLowerCase();
+    if(dogBreed.contains("collie")){
+      return 20;
+    }
+    if(dogBreed.contains("shephard")){
+      return 25;
+    }
+    if(dogBreed.contains("kelpies")||dogBreed.contains("tervens")){
+      return 30;
+    }
+    else{
+      return 10;
+    } 
+  }
+}
+    
+    

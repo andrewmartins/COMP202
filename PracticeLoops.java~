@@ -1,0 +1,34 @@
+public class PracticeLoops{
+  
+  public static void main(String[] args) {
+    
+    printMultiples(5, 33);
+    printMultiples(-2, 10);
+    
+  }
+  
+  // a method that takes tow integers as input and displays 
+  //the multiples of the first one htat are strictly smaller than the second one
+  /* 
+   * printMultiples(5, 33) --> 5 10 15 20 25 30
+   * printMultiples(7, 5) --> 
+   * printMultiples(3,9) --> 3 6
+   * printMultiples(-2, 10) --> -2 0 2 4 6 8 *
+   *
+   */
+  public static void printMultiples(int m, int n){
+    int original = m;
+    while(m < n){
+      //Solution 2: increment by 1 and check which one is a multiple 
+      /*
+       * 
+      if(m%m == 0) {
+        System.out.println(m);
+      */
+      //Solutuion 1: incremetn by the multiple
+      System.out.println(m);
+      m = m + Math.abs(original);
+    }
+    System.out.println();
+  }
+}
